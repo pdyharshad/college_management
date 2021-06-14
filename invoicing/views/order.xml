@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+          <record id="view_order_form_inherit_invoicing" model="ir.ui.view">
+            <field name="name">hotel.order.form.inherit.invoicing</field>
+            <field name="model">restaurant.order</field>
+            <field name="inherit_id" ref="hotel_management.view_order_form"/>
+            <field name="arch" type="xml">
+              <xpath expr="/form/header" position="inside">
+                <button type="object" name="create_invoice" string="Create Inovice"/>
+              </xpath>
+              <xpath expr="/form/sheet/group/group[2]" position="inside">
+                <field name="invoice_id"/>
+              </xpath>
+            </field>
+          </record>
+</odoo>

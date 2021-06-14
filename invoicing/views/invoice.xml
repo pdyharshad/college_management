@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <menuitem id="customer_invoice_root"
+            name="Invoice"
+            sequence="2"/>
+        <menuitem id="customer_invoice"
+          name="Invoice"
+          parent="invoicing.customer_invoice_root"
+          />
+          <record id="view_invoice_form" model="ir.ui.view">
+            <field name="name">invoice.form</field>
+            <field name="model">customer.invoice</field>
+            <field name="arch" type="xml">
+              <form string="Invoice">
+                <header>
+                </header>
+                <sheet>
+                  <group>
+                    <group>
+                      <field name="customer_name" string="Customer"/>
+                    </group>
+                    <group>
+                      <field name="total_amount" string="Total" 
+                        readonly="1"/>
+                    </group>
+                  </group>
+                  <!--<group>
+                    <label for="order_line" string="OrderLine"/>
+                    <field name="order_line" nolabel="1">
+                      <tree editable="bottom">
+                        <field name="dish"/>
+                        <field name="quantity"/>
+                        <field name="price"/>
+                        <field name="total"/>
+                      </tree>
+                    </field>
+                  </group> -->
+
+                </sheet>
+              </form>
+            </field>
+          </record>
+          <record id="view_invoice_list" model="ir.ui.view">
+            <field name="name">view.invoice.list</field>
+            <field name="model">customer.invoice</field>
+            <field name="arch" type="xml">
+              <tree>
+                <field name="customer_name"/>
+                <field name="total_amount"/>
+              </tree>
+            </field>
+          </record>
+        <record id="action_cust_invoice" model="ir.actions.act_window">
+            <field name="name">Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.invoice</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_view_cust_invoice_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="invoicing.view_invoice_list"/>
+            <field name="act_window_id" ref="action_cust_invoice"/>
+          </record>
+        <record id="action_view_cust_invoice_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoicing.view_invoice_form"/>
+            <field name="act_window_id" ref="action_cust_invoice"/>
+          </record>
+
+        <menuitem id="menu_customer_inovices"
+          name="Invoices"
+          parent="invoicing.customer_invoice"
+          action="invoicing.action_cust_invoice"
+          sequence="1"
+          />
+    
+</odoo>
